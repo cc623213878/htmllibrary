@@ -1,0 +1,144 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas绘图</title>
+</head>
+<body style="background-color:#a0cc38">
+<canvas id="drawing" width="800" height="600" style="border:0px;margin-left:600px;margin-top:100px">A Drawing of something</canvas>
+<script> 
+  var ctx = document.getElementById("drawing").getContext("2d");
+  //定义一个函数 ，封装风车的底部基座
+function circ(ligth,x,y){
+		ctx.beginPath();
+		ctx.lineWidth=15;
+		ctx.strokeStyle="#fff";
+		ctx.arc(x,y,ligth,0,2*Math.PI);
+		ctx.stroke();
+}
+var num =0;
+function yezi(ligth,x,y){
+        ctx.save();  //保存默认情况下的canvas变换状态
+		
+        ctx.beginPath();
+		
+        ctx.translate(x,y);
+        // ctx.globalAlpha = 0.9;
+        // 设置第一次状态下 坐标系旋转度数
+        ctx.rotate((Math.PI/180)*num);
+        var liner1 = ctx.createLinearGradient(30,-12,30,12);      //这里设置颜色渐变填充的样式
+            liner1.addColorStop(0,"#ccc");
+            liner1.addColorStop(0.5,"#fff");
+            liner1.addColorStop(1,"#ccc");
+            ctx.fillStyle = liner1;
+        ctx.save();                 //保存第一次状态  平移坐标系变换
+            
+            bind(ligth);                //调用函数
+ 
+            //绘制第二片叶子
+            
+            ctx.rotate((Math.PI/180)*120);   //坐标系旋转120°
+            ctx.save();                        //保存旋转坐标系状态，为第三片叶子做铺垫
+                bind(ligth);            //调用函数
+                //绘制第三片叶子
+                
+			ctx.rotate((Math.PI/180)*120);   //坐标系旋转120°
+			ctx.save();    
+				bind(ligth);     //调用函数
+				
+			ctx.rotate((Math.PI/180)*120);   //坐标系旋转120°
+			ctx.save();    
+				bind(ligth);     //调用函数
+					
+            ctx.restore();    //回复第3次状态前（旋转坐标系）
+            ctx.restore();        //回复第2次状态前（旋转坐标系）
+			ctx.restore();
+            //绘制叶子中心圆圈
+            ctx.beginPath();
+            var arcgradient = ctx.createRadialGradient(0,0,0,0,0,16);
+            arcgradient.addColorStop(0,"#ccc");
+            arcgradient.addColorStop(0.1,"#fff");
+            arcgradient.addColorStop(1,"#ccc");
+            ctx.arc(0,0,10,0,Math.PI*2);
+            ctx.fillStyle  = arcgradient;
+            ctx.fill();
+ 
+        ctx.restore();             //回复第1次状态前（平移坐标系）
+ 
+        num+=3;   //第一状下  环境1   态坐标系旋转度数增加********************************这个num使得环境1的旋转角度在不停的变化，**********************************************
+        ctx.restore();
+ 
+    }
+ 
+ 
+    //绘制每片叶子都重复的代码，这里做一个函数包装
+    function bind(ligth){
+		ctx.beginPath();
+        ctx.moveTo(0,0);                   
+        ctx.lineTo(ligth,0);
+        ctx.stroke();
+    }
+function poin(x,y){
+			ctx.beginPath();
+            var arcgradient = ctx.createRadialGradient(0,0,0,0,0,16);
+            arcgradient.addColorStop(0.1,"#fff");
+            ctx.arc(x,y,10,0,Math.PI*2);
+            ctx.fillStyle  = arcgradient;
+            ctx.fill();
+}
+setInterval(function(){
+        ctx.clearRect(0,0,800,600);　　　　//每次执行代码前，都要将画布清空，不然画出的图形会滞留在画布上；
+		circ(100,200,400);
+		yezi(100,200,400);
+		
+		circ(100,500,400);
+		yezi(100,500,400);
+		ctx.beginPath();
+        ctx.moveTo(200,400);                   
+        ctx.lineTo(280,270);
+
+		ctx.moveTo(200,400);           
+        ctx.lineTo(350,400);
+
+		ctx.moveTo(500,400);           
+        ctx.lineTo(410,200);
+		
+		ctx.moveTo(350,400);           
+        ctx.lineTo(430,270);
+
+		ctx.moveTo(280,270);           
+        ctx.lineTo(430,270);
+
+		ctx.moveTo(410,200);           
+        ctx.lineTo(370,200);
+
+		ctx.moveTo(350,400);           
+        ctx.lineTo(260,230);
+			
+		ctx.moveTo(260,230);           
+        ctx.lineTo(290,230);
+
+		ctx.moveTo(260,230);           
+        ctx.lineTo(290,230);
+        ctx.stroke();
+		poin(280,270);
+		poin(430,270);
+		poin(350,400);
+		poin(410,200);
+		poin(260,230);
+		ctx.beginPath();
+		ctx.lineWidth=3;
+		ctx.moveTo(350,400);           
+        ctx.lineTo(350,360);
+		ctx.moveTo(340,360);           
+        ctx.lineTo(360,360);
+
+		ctx.moveTo(350,400);           
+        ctx.lineTo(350,440);
+		ctx.moveTo(340,440);           
+        ctx.lineTo(360,440);
+		ctx.stroke();
+    },50);
+</script>
+</body>
+</html>

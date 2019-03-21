@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/jun.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+<div id="classify">
+    <ul>
+        <li class="navmenu"><a href="#">文学</a>
+            <ul>
+                <li class="navmenu"><a href="#">文学</a>
+                    <ul>
+                        <li><a href="#">文学</a></li>
+                        <li><a href="#">文学</a></li>
+                        <li><a href="#">文学</a></li>
+                        <li><a href="#">文学</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">文学</a></li>
+                <li><a href="#">文学</a></li>
+                <li><a href="#">文学</a></li>
+            </ul>
+        </li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">文学</a></li>
+    </ul>
+</div>
+</body>
+<script>
+    $(function () {
+        $('li.navmenu a').click(function () {
+            if($(this).parent().children('ul').css('display') === 'none') {
+                $(this).parent().children('ul').show(700);
+            }
+            else {
+                $(this).parent().children('ul').hide(700);
+            }
+        })
+        $('.navmenu').children('ul').hide();
+    });
+</script>
+</html>
